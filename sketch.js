@@ -27,10 +27,39 @@ function setup() {
 }
 
 
+// draws an m by n grid at coordinates x and y, spaced out by sideLength.
+function drawMbyNGrid(x, y, m, n, sideLength) {
+    strokeWeight(2)
+    stroke(0, 0, 80)
+
+    // draw horizontal lines
+    for (let i = m; i >= 0; i--) {
+        // we want the y position to have a minus sign because that makes
+        // all the lines face upward.
+        let yPos = y - i * sideLength
+        line(x, yPos, x + sideLength * n, yPos)
+    }
+
+    // draw vertical lines
+    for (let i = 0; i <= n; i++) {
+        // we want the x position to have a plus sign because that makes all
+        // the lines face to the right.
+        let xPos = x + i * sideLength
+        line(xPos, y, xPos, y - sideLength * m)
+    }
+}
+
+
 function draw() {
     background(234, 34, 24)
 
+    let gridStart = new p5.Vector(width/2, 3*height/4)
 
+    drawMbyNGrid(gridStart.x, gridStart.y, 8, 4, 20)
+
+    stroke(0, 100, 100)
+    strokeWeight(5)
+    point(gridStart.x, gridStart.y)
 
     displayDebugCorner()
 }
